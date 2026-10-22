@@ -1,0 +1,46 @@
+------Practica 1------
+-Parte 1: Sitio estático en el puerto 80 
+sudo dnf install httpd -y
+sudo systemctl enable --now httpd
+sudo systemctl status httpd
+
+sudo su
+cd /var/www/html
+mkdir prueba
+cd ./prueba
+
+nano index.html
+
+nano /etc/httpd/conf/httpd.conf
+# <VirtualHost *:80>
+#     ServerName prueba.localhost
+#     DocumentRoot "/var/www/html/prueba"
+#     ServerAdmin root@localhost
+# </VirtualHost>
+
+nano /etc/hosts
+* 127.0.0.1 prueba.localhost
+
+sudo systemctl restart httpd
+
+
+-Parte 2: Sitio estático en el puerto 8080 
+cd /var/www/html
+mkdir datos
+cd ./datos
+
+nano index.html
+
+nano /etc/httpd/conf/httpd.conf
+# [Agregar al archivo]:
+# Listen 8080
+# <VirtualHost *:8080>
+#     ServerName ashley.localhost
+#     DocumentRoot "/var/www/html/ashley"
+#     ServerAdmin root@localhost
+# </VirtualHost>
+
+nano /etc/hosts
+127.0.0.1 ashley.localhost
+
+sudo systemctl restart httpd

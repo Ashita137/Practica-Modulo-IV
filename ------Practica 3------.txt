@@ -1,0 +1,28 @@
+------Practica 3------
+
+cat /etc/redhat-release
+rpm -q cups cups-pdf
+ip -4 addr show ens33
+ping -c 4 8.8.8.8
+sudo subscription-manager status
+sudo subscription-manager repos-enable codeready-builder-for-rhel-10-$(arch)-rpms
+sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm
+sudo dnf repolist
+sudo dnf install -y cups cups-pdf
+sudo systemctl enable --now cups
+systemctl status cups
+sudo ss -tlnp | grep 631
+
+lpstat -p -d
+sudo lpadmin -d Cups-PDF
+echo "Prueba local RHEL 10" | lp -d Cups-PDF
+ls -lh "$(xdg-user-dir DESKTOP)"/*.pdf
+
+sudo cupsctl --remote-any
+sudo ss -tlnp | grep 631
+sudo firewall-cmd --permanent --add-service=ipp
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-services
+lpstat -W all -o Cups-PDF
+sudo ls -lh /var/spool/cups-pdf/ANONYMOUS/
+gio open /var/spool/cups-pdf/ANONYMOUS/*_Notepad-job_*.pdf
